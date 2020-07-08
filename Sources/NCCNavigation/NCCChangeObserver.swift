@@ -17,6 +17,12 @@ struct NCCChangeObserver<Base: View, Value: Equatable>: View {
 
     @State var model = Model()
 
+    init(base: Base, value: Value, action: @escaping (Value) -> Void) {
+        self.base = base
+        self.value = value
+        self.action = action
+    }
+
     var body: some View {
         if model.update(value: value) {
             DispatchQueue.main.async { self.action(self.value) }

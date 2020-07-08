@@ -20,10 +20,16 @@ public struct NCCNavLink<Content: View, Label: View>: View, Identifiable {
 
     let usingInternalState: Bool
 
-    @Binding private var isPresentingExternal: Bool
+    @Binding private var isPresentingExternal: Bool {
+        willSet {
+            print("isPresentingExternal... new=\(newValue), old=\(isPresentingExternal)")
+            self.isPresenting = newValue
+        }
+    }
     @State private var isPresentingInternal: Bool = false
+    @State private var isPresenting: Bool = false
 
-    var isPresenting: Bool {
+    var isPresenting2: Bool {
         get {
             usingInternalState ? isPresentingInternal : isPresentingExternal
         }
