@@ -28,7 +28,13 @@ public struct NCCNavLink<Content: View, Label: View>: View, Identifiable {
     }
     @State private var isPresentingInternal: Bool = false
     @State private var isPresenting: Bool = false {
+        willSet {
+            print("... willSet old=\(isPresenting), newValue=\(newValue)")
+        }
         didSet {
+            print("... didSet isPresenting=\(isPresenting), old=\(oldValue)")
+            guard isPresenting != oldValue else { print("... isPresenting unchanged -- abort"); return }
+            
             if isPresenting {
                 let item = NCCNavigationContentItem(id: self.itemId, view: AnyView(self.destination())) {
                     // onDismiss
