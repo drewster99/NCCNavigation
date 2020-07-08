@@ -61,15 +61,15 @@ public struct NCCNavLink<Content: View, Label: View>: View, Identifiable {
     }
 
 
-    init(label: Label, @ViewBuilder destination: @escaping () -> Content) {
+    public init(label: Label, @ViewBuilder destination: @escaping () -> Content) {
         self.init(destination: destination, label: { label })
     }
 
-    init(destination: Content, @ViewBuilder label: @escaping () -> Label) {
+    public init(destination: Content, @ViewBuilder label: @escaping () -> Label) {
         self.init(destination: { destination }, label: label)
     }
 
-    init(label: Label, destination: Content) {
+    public init(label: Label, destination: Content) {
         self.init(destination: { destination }, label: { label })
     }
 
