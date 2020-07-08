@@ -16,7 +16,7 @@ public struct NCCNavigationView<Content: View>: View, Identifiable {
 
     private var content: () -> Content
 
-    init(manager: NCCNavigationManager? = nil, @ViewBuilder content: @escaping () -> Content) {
+    public init(manager: NCCNavigationManager? = nil, @ViewBuilder content: @escaping () -> Content) {
         self.content = content
         let itemId = self.id.uuidString + "-NavigationViewContent"
         let item = NCCNavigationContentItem(id: itemId, view: AnyView(content())) {

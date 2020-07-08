@@ -13,6 +13,7 @@ public struct NCCNavLink<Content: View, Label: View>: View, Identifiable {
     @Environment(\.nccNavigationManager) private var navManager: NCCNavigationManager
 
     public let id: UUID
+
     let itemId: NCCNavigationContentItem.ID
     let label: () -> Label
     let destination: () -> Content
@@ -35,7 +36,7 @@ public struct NCCNavLink<Content: View, Label: View>: View, Identifiable {
         }
     }
 
-    init(@ViewBuilder destination: @escaping () -> Content, @ViewBuilder label: @escaping () -> Label) {
+    public init(@ViewBuilder destination: @escaping () -> Content, @ViewBuilder label: @escaping () -> Label) {
         let id = UUID()
 
         self.id = id
@@ -47,7 +48,7 @@ public struct NCCNavLink<Content: View, Label: View>: View, Identifiable {
         debugOutput("New navlink (without binding) ---- id \(self.id.uuidString)")
     }
 
-    init(label: Label, isPresenting: Binding<Bool>, @ViewBuilder destination: @escaping () -> Content) {
+    public init(label: Label, isPresenting: Binding<Bool>, @ViewBuilder destination: @escaping () -> Content) {
         let id = UUID()
 
         self.id = id
@@ -103,7 +104,7 @@ public struct NCCNavLink<Content: View, Label: View>: View, Identifiable {
 }
 
 
-extension NCCNavLink where Label == Text {
+public extension NCCNavLink where Label == Text {
 
     init(text: String, @ViewBuilder destination: @escaping () -> Content) {
         self.init(destination: destination, label: { Text(text) })

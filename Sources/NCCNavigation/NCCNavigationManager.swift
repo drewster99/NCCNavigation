@@ -16,7 +16,7 @@ final public class NCCNavigationManager: ObservableObject, Identifiable {
     @State private var presentedItemIDs: Set<NCCNavigationContentItem.ID> = []
     @Published private(set) var items: [NCCNavigationContentItem] = []
     @Published var index: Int = 0
-    @Published var canDismissCurrent = false
+    @Published public private(set) var canDismissCurrent = false
 
     static let defaultManager: NCCNavigationManager = {
         NCCNavigationManager()
