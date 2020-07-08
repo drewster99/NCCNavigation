@@ -22,7 +22,7 @@ final public class NCCNavigationManager: ObservableObject, Identifiable {
         NCCNavigationManager()
     }()
 
-    init() {
+    public init() {
         debugOutput("[for defaultManager]: \(id.uuidString)")
         // Needed for defaultManager
     }
