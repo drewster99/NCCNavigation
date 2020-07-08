@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 public struct NCCNavLink<Content: View, Label: View>: View, Identifiable {
-    @Environment(\.nccNavigationManager) private var navManager: NCCNavigationManager
+    @EnvironmentObject private var navManager: NCCNavigationManager
 
     public let id: UUID
 

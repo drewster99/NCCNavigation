@@ -41,7 +41,7 @@ public struct NCCNavigationView<Content: View>: View, Identifiable {
                     ForEach(self.navManager.items) { item in
                         NCCNavigationHost(item: item)
                             .frame(width: geometry.size.width, height: nil)
-                            .environment(\.nccNavigationManager, self.navManager)
+                            .environmentObject(self.navManager)
                     }
                 }
             }
