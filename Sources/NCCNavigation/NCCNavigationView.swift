@@ -34,6 +34,30 @@ public struct NCCNavigationView<Content: View>: View, Identifiable {
         self.navManager = managerToUse
     }
 
+
+    public init(withNavigationManager handler: ((NCCNavigationManager) -> Void)? = nil, @ViewBuilder content: @escaping () -> Content) {
+        self.content = content
+        let itemId = self.id.uuidString + "-NavigationViewContent"
+        let item = NCCNavigationContentItem(id: itemId, view: AnyView(content())) {
+            // This item should never be dismissed
+            print("NCCNavigationContentItem: onDismiss: FATAL ERROR: NCCNavigationContentItem with id \(itemId) was dismissed!  (This should never happen!)")
+            #if DEBUG
+            fatalError()
+            #else
+            // Only warning for release -- might be better to force crash anyway
+            #endif
+        }
+        let manager = NCCNavigationManager(item)
+        self.navManager = manager
+        handler?(manager)
+    }
+
+    public func withNavigationManager(_ handler: (NCCNavigationManager) -> ()) -> Self {
+        handler(self.navManager)
+        return self
+    }
+
+
     public var body: some View {
         GeometryReader { geometry in
             ScrollView(.horizontal, showsIndicators: false) {
