@@ -9,13 +9,13 @@
 import Foundation
 import SwiftUI
 
-struct NCCNavigationManagerKey: EnvironmentKey {
-    static let defaultValue: NCCNavigationManager = {
+public struct NCCNavigationManagerKey: EnvironmentKey {
+    public static let defaultValue: NCCNavigationManager = {
         NCCNavigationManager.defaultManager
     }()
 }
 
-extension EnvironmentValues {
+public extension EnvironmentValues {
     var nccNavigationManager: NCCNavigationManager {
         get {
             return self[NCCNavigationManagerKey.self]

@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-final class NCCNavigationManager: ObservableObject, Identifiable {
+final public class NCCNavigationManager: ObservableObject, Identifiable {
 
     public let id = UUID()
 
@@ -49,7 +49,7 @@ final class NCCNavigationManager: ObservableObject, Identifiable {
         }
     }
 
-    public func present(_ item: NCCNavigationContentItem) {
+    func present(_ item: NCCNavigationContentItem) {
         debugOutput("manager \(id.uuidString): item.id = \(item.id)")
 
         let inHierarchy = presentedItemIDs.contains(item.id)
@@ -70,7 +70,7 @@ final class NCCNavigationManager: ObservableObject, Identifiable {
         }
     }
 
-    public func dismiss(_ itemId: NCCNavigationContentItem.ID) {
+    func dismiss(_ itemId: NCCNavigationContentItem.ID) {
         debugOutput("manager \(id.uuidString): item.id = \(itemId)")
 
         guard !presentedItemIDs.contains(itemId) else {

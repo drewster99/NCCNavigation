@@ -9,10 +9,10 @@
 import Foundation
 import SwiftUI
 
-struct NCCNavigationView<Content: View>: View, Identifiable {
+public struct NCCNavigationView<Content: View>: View, Identifiable {
     @ObservedObject private var navManager: NCCNavigationManager
 
-    let id = UUID()
+    public let id = UUID()
 
     private var content: () -> Content
 
@@ -34,29 +34,7 @@ struct NCCNavigationView<Content: View>: View, Identifiable {
         self.navManager = managerToUse
     }
 
-    init(withNavigationManager handler: ((NCCNavigationManager) -> Void)? = nil, @ViewBuilder content: @escaping () -> Content) {
-        self.content = content
-        let itemId = self.id.uuidString + "-NavigationViewContent"
-        let item = NCCNavigationContentItem(id: itemId, view: AnyView(content())) {
-            // This item should never be dismissed
-            print("NCCNavigationContentItem: onDismiss: FATAL ERROR: NCCNavigationContentItem with id \(itemId) was dismissed!  (This should never happen!)")
-            #if DEBUG
-            fatalError()
-            #else
-            // Only warning for release -- might be better to force crash anyway
-            #endif
-        }
-        let manager = NCCNavigationManager(item)
-        self.navManager = manager
-        handler?(manager)
-    }
-
-    public func withNavigationManager(_ handler: (NCCNavigationManager) -> ()) -> Self {
-        handler(self.navManager)
-        return self
-    }
-
-    var body: some View {
+    public var body: some View {
         GeometryReader { geometry in
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .center, spacing: 0) {

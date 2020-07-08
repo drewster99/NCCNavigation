@@ -9,10 +9,10 @@
 import Foundation
 import SwiftUI
 
-struct NCCNavLink<Content: View, Label: View>: View, Identifiable {
+public struct NCCNavLink<Content: View, Label: View>: View, Identifiable {
     @Environment(\.nccNavigationManager) private var navManager: NCCNavigationManager
 
-    let id: UUID
+    public let id: UUID
     let itemId: NCCNavigationContentItem.ID
     let label: () -> Label
     let destination: () -> Content
@@ -72,10 +72,6 @@ struct NCCNavLink<Content: View, Label: View>: View, Identifiable {
         self.init(destination: { destination }, label: { label })
     }
 
-    public func withNavigationManager(_ handler: (NCCNavigationManager) -> ()) {
-        handler(self.navManager)
-    }
-
     func present() {
         debugOutput("NCCNavLink \(id.uuidString): \(#function) [old isPresenting = \(self.isPresenting)]")
         self.isPresenting = true
@@ -86,7 +82,7 @@ struct NCCNavLink<Content: View, Label: View>: View, Identifiable {
         self.isPresenting = false
     }
 
-    var body: some View {
+    public var body: some View {
         Button(action: {
             self.present()
         }, label: label)
