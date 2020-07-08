@@ -27,6 +27,12 @@ struct NCCChangeObserver<Base: View, Value: Equatable>: View {
     class Model {
         private var savedValue: Value?
 
+        init() {
+            print("NCCChangeObserver.Model init...")
+        }
+        deinit {
+            print("NCCChangeObserver.Model deinit...")
+        }
         func update(value: Value) -> Bool {
             guard value != savedValue else { return false }
             savedValue = value
@@ -68,6 +74,7 @@ extension View {
     ///   - newValue: The new value that failed the comparison check.
     /// - Returns: A modified version of this view
     func onChange<Value: Equatable>(of value: Value, perform action: @escaping (_ newValue: Value)->Void) -> NCCChangeObserver<Self, Value> {
-        NCCChangeObserver(base: self, value: value, action: action)
+        print("*** instantiating new change observer")
+        return NCCChangeObserver(base: self, value: value, action: action)
     }
 }

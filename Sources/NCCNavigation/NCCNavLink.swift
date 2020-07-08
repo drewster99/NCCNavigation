@@ -28,11 +28,14 @@ public struct NCCNavLink<Content: View, Label: View>: View, Identifiable {
             usingInternalState ? isPresentingInternal : isPresentingExternal
         }
         nonmutating set {
+            let old = isPresenting
             if usingInternalState {
                 _isPresentingInternal.projectedValue.animation(.easeInOut).wrappedValue = newValue
             } else {
                 _isPresentingExternal.projectedValue.animation(.easeInOut).wrappedValue = newValue
             }
+
+            debugOutput("fake isPresenting:didSet: old=\(old), new=\(newValue), isPresenting after update=\(isPresenting)")
         }
     }
 
