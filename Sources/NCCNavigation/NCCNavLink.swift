@@ -27,7 +27,20 @@ public struct NCCNavLink<Content: View, Label: View>: View, Identifiable {
         }
     }
     @State private var isPresentingInternal: Bool = false
-    @State private var isPresenting: Bool = false
+    @State private var isPresenting: Bool = false {
+        didSet {
+            if isPresenting {
+                let item = NCCNavigationContentItem(id: self.itemId, view: AnyView(self.destination())) {
+                    // onDismiss
+                    self.dismiss()
+                }
+                self.navManager.present(item)
+            } else {
+                self.navManager.dismiss(self.itemId)
+            }
+
+        }
+    }
 
     var isPresenting2: Bool {
         get {
@@ -96,19 +109,20 @@ public struct NCCNavLink<Content: View, Label: View>: View, Identifiable {
         Button(action: {
             self.present()
         }, label: label)
-            .onChange(of: self.isPresenting) { (newValue) in
-                debugOutput("onChange \(self.id.uuidString): \(#function) new value: \(newValue), isPresenting = \(self.isPresenting)")
-                if newValue {
-                    let item = NCCNavigationContentItem(id: self.itemId, view: AnyView(self.destination())) {
-                        // onDismiss
-                        self.dismiss()
-                    }
-                    self.navManager.present(item)
-                } else {
-                    self.navManager.dismiss(self.itemId)
-                }
-
-        }.animation(.easeInOut)
+//            .onChange(of: self.isPresenting) { (newValue) in
+//                debugOutput("onChange \(self.id.uuidString): \(#function) new value: \(newValue), isPresenting = \(self.isPresenting)")
+//                if newValue {
+//                    let item = NCCNavigationContentItem(id: self.itemId, view: AnyView(self.destination())) {
+//                        // onDismiss
+//                        self.dismiss()
+//                    }
+//                    self.navManager.present(item)
+//                } else {
+//                    self.navManager.dismiss(self.itemId)
+//                }
+//
+//        }
+        .animation(.easeInOut)
     }
 }
 
