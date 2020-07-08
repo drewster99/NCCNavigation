@@ -44,9 +44,9 @@ final public class NCCNavigationManager: ObservableObject, Identifiable {
     private func updateCanDismissCurrent() {
         let newValue = index > 0
         debugOutput("index=\(index), canDismissCurrent=\(canDismissCurrent), newValue=\(newValue)")
-        if canDismissCurrent != newValue {
-            canDismissCurrent = newValue
-        }
+//        if canDismissCurrent != newValue {
+//            canDismissCurrent = newValue
+//        }
     }
 
     func present(_ item: NCCNavigationContentItem) {
