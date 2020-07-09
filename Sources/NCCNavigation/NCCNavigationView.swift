@@ -35,7 +35,7 @@ public struct NCCNavigationView<Content: View>: View, Identifiable {
     }
 
 
-    public init(withNavigationManager handler: ((NCCNavigationManager) -> Void)? = nil, @ViewBuilder content: @escaping () -> Content) {
+    public init(withNavigationManager handler: ((NCCNavigationManager) -> Void), @ViewBuilder content: @escaping () -> Content) {
         self.content = content
         let itemId = self.id.uuidString + "-NavigationViewContent"
         let item = NCCNavigationContentItem(id: itemId, view: AnyView(content())) {
@@ -49,7 +49,7 @@ public struct NCCNavigationView<Content: View>: View, Identifiable {
         }
         let manager = NCCNavigationManager(item)
         self.navManager = manager
-        handler?(manager)
+        handler(manager)
     }
 
     public func withNavigationManager(_ handler: (NCCNavigationManager) -> ()) -> Self {
